@@ -1,3 +1,4 @@
+import React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
@@ -89,6 +90,7 @@ const skills = [
   'Aprendizaje Autónomo',
   'Resolución de problemas',
   'Trabajo en equipo',
+  'Pensamiento crítico',
 ];
 
 const languages = [
