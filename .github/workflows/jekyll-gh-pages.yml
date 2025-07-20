@@ -40,8 +40,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
-
-      - name: Deploy to GitHub Pages
-        uses: bitovi/github-actions-react-to-github-pages@v1.2.4
-        with:
-          path: dist
+          deploy_branch: gh-pages
+          deployment_name: github-pages
+          force_orphan: true
