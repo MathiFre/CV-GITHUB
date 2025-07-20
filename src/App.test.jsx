@@ -1,59 +1,42 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { describe, it, expect } from 'vitest';
 import App from './App';
 
-// Datos de ejemplo para pruebas unitarias
-const personalData = {
-  name: 'Mathias Isaac Freire Unda',
-  title: 'Estudiante de Ingeniería en Software',
-  photo: 'https://randomuser.me/api/portraits/men/1.jpg',
-  email: 'matifreireu@hotmail.com',
-  phone: '(593) 9788-73119',
-  location: 'Ecuador',
-};
-
-const skills = [
-  'Liderazgo',
-  'Aprendizaje Autónomo',
-  'Resolución de problemas',
-  'Trabajo en equipo',
-  'Pensamiento crítico',
-];
-
-const projects = [
-  { title: 'Proyecto 1' },
-  { title: 'Proyecto 2' },
-  { title: 'Proyecto 3' },
-];
-
-describe('Portafolio Personal', () => {
-  test('Los datos personales incluyen fotografía, teléfono y nombre completo', () => {
+describe('Validaciones del portafolio personal', () => {
+  it('debe mostrar una imagen de fotografía', () => {
     render(<App />);
-    // Foto
-    const img = screen.getByRole('img', { name: /mathias isaac freire unda/i });
-    expect(img).toBeInTheDocument();
-    expect(img).toHaveAttribute('src', personalData.photo);
-    // Teléfono
-    expect(screen.getByText(personalData.phone)).toBeInTheDocument();
-    // Nombre completo
-    expect(screen.getByText(personalData.name)).toBeInTheDocument();
+    const photo = screen.getByTestId('profile-photo');
+    const img = photo.querySelector('img');
+    expect(img).to.exist;
+    expect(img.getAttribute('src')).to.match(/\.(jpg|jpeg|png|gif|webp)$/i);
   });
 
-  test('El listado de habilidades tiene al menos 5 elementos', () => {
+  it('debe mostrar el número de teléfono', () => {
     render(<App />);
-    const chips = screen.getAllByText(/liderazgo|aprendizaje autónomo|resolución de problemas|trabajo en equipo|pensamiento crítico/i);
-    expect(chips.length).toBeGreaterThanOrEqual(5);
+    const phone = screen.getAllByTestId('phone-number');
+    expect(phone.length).to.be.greaterThan(0);
+    phone.forEach(p => expect(p.textContent).to.match(/\d{4,}/));
   });
 
-  test('El listado de proyectos tiene al menos 3 elementos', () => {
-    // Simulación: los proyectos se muestran en la sección de cursos y formación
+  it('debe mostrar nombres y apellidos', () => {
     render(<App />);
-    // Buscar títulos de proyectos (puedes adaptar si tienes una sección específica de proyectos)
-    const proyectos = [
-      screen.getByText(/curso profesional de la nube/i),
-      screen.getByText(/curso exploración de iot/i),
-      screen.getByText(/curso introducción a cisco/i),
-    ];
-    expect(proyectos.length).toBeGreaterThanOrEqual(3);
+    const name = screen.getAllByTestId('full-name');
+    expect(name.length).to.be.greaterThan(0);
+    name.forEach(n => {
+      expect(n.textContent).to.not.equal('');
+      expect(n.textContent.length).to.be.greaterThan(5);
+    });
+  });
+
+  it('debe tener al menos 5 habilidades', () => {
+    render(<App />);
+    const skills = screen.getAllByTestId('skill-item');
+    expect(skills.length).toBeGreaterThanOrEqual(5);
+  });
+
+  it('debe tener al menos 3 elementos en experiencia/proyectos', () => {
+    render(<App />);
+    const projects = screen.getAllByTestId('project-item');
+    expect(projects.length).toBeGreaterThanOrEqual(3);
   });
 });

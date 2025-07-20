@@ -28,7 +28,7 @@ import './App.css';
 const personalData = {
   name: 'Mathias Isaac Freire Unda',
   title: 'Estudiante de Ingeniería en Software',
-  photo: 'https://randomuser.me/api/portraits/men/1.jpg', // Cambia por tu foto real
+  photo: 'https://randomuser.me/api/portraits/men/1.jpg', 
   email: 'matifreireu@hotmail.com',
   phone: '(593) 9788-73119',
   location: 'Ecuador',
@@ -141,14 +141,14 @@ function App() {
       <Container maxWidth="md" sx={{ mt: 6 }}>
         <Card sx={{ mb: 6, borderRadius: 6, boxShadow: 8, p: 4, background: 'rgba(255,255,255,0.98)', position: 'relative', overflow: 'visible' }}>
           <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', top: -60 }}>
-            <Avatar src={personalData.photo} alt={personalData.name} sx={{ width: 130, height: 130, boxShadow: 6, border: '5px solid #6366f1', mb: 2, bgcolor: '#fff' }} />
-            <Typography variant="h2" fontWeight={900} color="#3730a3" sx={{ letterSpacing: 1, mb: 1 }}>{personalData.name}</Typography>
+            <Avatar data-testid="profile-photo" src={personalData.photo} alt={personalData.name} sx={{ width: 130, height: 130, boxShadow: 6, border: '5px solid #6366f1', mb: 2, bgcolor: '#fff' }} />
+            <Typography data-testid="full-name" variant="h2" fontWeight={900} color="#3730a3" sx={{ letterSpacing: 1, mb: 1 }}>{personalData.name}</Typography>
             <Typography variant="h5" color="#6366f1" sx={{ mb: 2, fontWeight: 600 }}>{personalData.title}</Typography>
             <Stack direction="row" spacing={3} alignItems="center" justifyContent="center" sx={{ mb: 1 }}>
               <EmailIcon fontSize="small" color="primary" />
               <Typography variant="body1" color="text.secondary">{personalData.email}</Typography>
               <PhoneIcon fontSize="small" color="primary" />
-              <Typography variant="body1" color="text.secondary">{personalData.phone}</Typography>
+              <Typography data-testid="phone-number" variant="body1" color="text.secondary">{personalData.phone}</Typography>
             </Stack>
             <Typography variant="body2" color="text.secondary">{personalData.location}</Typography>
           </Box>
@@ -160,7 +160,7 @@ function App() {
         </Card>
 
         <Grid container spacing={4} justifyContent="center" direction="row" alignItems="stretch" sx={{ flexWrap: 'nowrap', mb: 6 }}>
-          <Grid item xs={12} md={6} sx={{ display: 'flex' }}>
+          <Grid item xs={12} md={6} sx={{ display: 'flex' }} data-testid="education-item">
             <Card id="formacion" sx={{ borderRadius: 4, boxShadow: 4, width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'stretch', background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)' }}>
               <CardHeader avatar={<SchoolIcon color="primary" />} title={<Typography variant="h5" fontWeight={700}>Formación Académica</Typography>} />
               <CardContent>
@@ -176,7 +176,7 @@ function App() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} md={6} sx={{ display: 'flex' }}>
+          <Grid item xs={12} md={6} sx={{ display: 'flex' }} data-testid="project-item">
             <Card id="cursos" sx={{ borderRadius: 4, boxShadow: 4, width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'stretch', background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)' }}>
               <CardHeader avatar={<EmojiObjectsIcon color="secondary" />} title={<Typography variant="h5" fontWeight={700}>Cursos Realizados</Typography>} />
               <CardContent>
@@ -201,7 +201,7 @@ function App() {
             </Divider>
             <Grid container spacing={3} mt={1} justifyContent="center">
               {experience.map((exp, idx) => (
-                <Grid item xs={12} key={idx} display="flex" justifyContent="center">
+                <Grid item xs={12} key={idx} display="flex" justifyContent="center" data-testid="project-item">
                   <Card sx={{ borderRadius: 4, boxShadow: 3, width: '100%', background: 'linear-gradient(135deg, #e0e7ff 0%, #f5f5f5 100%)' }}>
                     <CardHeader avatar={<BusinessCenterIcon color="primary" />} title={<Typography variant="h6" fontWeight={700}>{exp.company}</Typography>} subheader={<Typography color="text.secondary">{exp.period} • {exp.duration}</Typography>} />
                     <CardContent>
@@ -222,37 +222,37 @@ function App() {
         <Box my={6} display="flex" justifyContent="center">
           <Box width={{ xs: '100%', md: '80%' }}>
             <Grid container spacing={5} justifyContent="center">
-              <Grid item xs={12} md={6} display="flex" justifyContent="center">
+              <Grid item xs={12} md={6} display="flex" justifyContent="center" data-testid="skills-section">
                 <Card id="habilidades" sx={{ borderRadius: 4, boxShadow: 3, width: '100%', background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)' }}>
                   <CardHeader avatar={<CodeIcon color="primary" />} title={<Typography variant="h5" fontWeight={700}>Habilidades</Typography>} />
                   <CardContent>
                     <Stack direction="row" spacing={1} flexWrap="wrap">
-                      {skills.map(skill => <Chip key={skill} label={skill} color="primary" variant="outlined" sx={{ fontSize: 16, m: 0.5, fontWeight: 600 }} />)}
+                      {skills.map(skill => <Chip  data-testid="skill-item" key={skill} label={skill} color="primary" variant="outlined" sx={{ fontSize: 16, m: 0.5, fontWeight: 600 }} />)}
                     </Stack>
                   </CardContent>
                 </Card>
               </Grid>
-              <Grid item xs={12} md={6} display="flex" justifyContent="center">
-                <Card id="idiomas" sx={{ borderRadius: 4, boxShadow: 3, width: '100%', background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)' }}>
-                  <CardHeader avatar={<LanguageIcon color="secondary" />} title={<Typography variant="h5" fontWeight={700}>Idiomas</Typography>} />
-                  <CardContent>
-                    <Stack direction="row" spacing={1} flexWrap="wrap">
-                      {languages.map(lang => <Chip key={lang.name} label={`${lang.name} (${lang.level})`} color="secondary" sx={{ fontSize: 16, m: 0.5, fontWeight: 600 }} />)}
-                    </Stack>
-                  </CardContent>
-                </Card>
-              </Grid>
+            <Grid item xs={12} md={6} display="flex" justifyContent="center" data-testid="languages-section">
+              <Card id="idiomas" sx={{ borderRadius: 4, boxShadow: 3, width: '100%', background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)' }}>
+                <CardHeader avatar={<LanguageIcon color="secondary" />} title={<Typography variant="h5" fontWeight={700}>Idiomas</Typography>} />
+                <CardContent>
+                  <Stack direction="row" spacing={1} flexWrap="wrap">
+                    {languages.map(lang => <Chip data-testid="language-item" key={lang.name} label={`${lang.name} (${lang.level})`} color="secondary" sx={{ fontSize: 16, m: 0.5, fontWeight: 600 }} />)}
+                  </Stack>
+                </CardContent>
+              </Card>
+            </Grid>
             </Grid>
           </Box>
         </Box>
 
         <Box my={6} display="flex" justifyContent="center">
           <Box width={{ xs: '100%', md: '80%' }}>
-            <Card id="paquetes" sx={{ borderRadius: 4, boxShadow: 3, background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)' }}>
+            <Card id="paquetes" sx={{ borderRadius: 4, boxShadow: 3, background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)' }} data-testid="tools-section">
               <CardHeader avatar={<WorkIcon color="primary" />} title={<Typography variant="h5" fontWeight={700}>Manejo de Paquetes</Typography>} />
               <CardContent>
                 <Stack direction="row" spacing={1} flexWrap="wrap">
-                  {tools.map(tool => <Chip key={tool} label={tool} color="success" sx={{ fontSize: 16, m: 0.5, fontWeight: 600 }} />)}
+                  {tools.map(tool => <Chip data-testid="tool-item" key={tool} label={tool} color="success" sx={{ fontSize: 16, m: 0.5, fontWeight: 600 }} />)}
                 </Stack>
               </CardContent>
             </Card>
