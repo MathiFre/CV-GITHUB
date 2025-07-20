@@ -9,7 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
-    permissions:  
+    permissions:
       contents: read
       pages: write
       id-token: write
@@ -28,11 +28,6 @@ jobs:
 
       - name: Build app
         run: npm run build
-
-      - name: Deploy to GitHub Pages
-        uses: bitovi/github-actions-react-to-github-pages@v1.2.4
-        with:
-          path: dist
 
       - name: Deploy to GitHub Pages
         uses: bitovi/github-actions-react-to-github-pages@v1.2.4
