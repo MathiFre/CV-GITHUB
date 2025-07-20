@@ -1,9 +1,9 @@
-name: Deploy React to GitHub Pages
+name: Deploy React (Vite) to GitHub Pages
 
 on:
   push:
     branches:
-      - main  # o la rama que uses para deploy
+      - main
 
 jobs:
   deploy:
@@ -11,33 +11,20 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Deploy React to GitHub Pages
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build app with Vite
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
         uses: bitovi/github-actions-react-to-github-pages@v1.2.4
         with:
-          # Especifica si esta acción debe hacer checkout del código
-          checkout: true # opcional, default es true
-
-          # Clonado parcial contra un filtro
-          checkout-filter: '' # opcional
-
-          # Rutas para sparse checkout
-          checkout-sparse-checkout: | # opcional
-            src/
-            public/
-
-          # Usa cone-mode (modo por defecto)
-          checkout-sparse-checkout-cone-mode: true # opcional, default es true
-
-          # Ruta de los archivos estáticos después del build
-          path: build # o dist, dependiendo de tu configuración
-
-          # Comando para instalar dependencias
-          install_command: npm ci # opcional, default
-
-          # Comando para construir el proyecto
-          build_command: npm run build # opcional, default
-
-          # Usa cache para dependencias npm
-          caching: true # opcional
+          path: dist
