@@ -1,7 +1,7 @@
 Universidad Internacional SEK  
 Implementación de pruebas unitarias automatizadas asistidas por IA  
 Mathias Freire  
-08/07/2025  
+20/07/2025  
 
 * Alguna sugerencia de la IA fue útil y cómo se adaptó al proyecto?  
   
